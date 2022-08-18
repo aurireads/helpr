@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,12 @@ import { HomeComponent } from './components/home/home.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    PagesModule
+    PagesModule,
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      progressBar: true,
+      closeButton: true
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
