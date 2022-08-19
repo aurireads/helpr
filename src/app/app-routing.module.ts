@@ -1,5 +1,7 @@
+import { ExitComponent } from './utils/exit/exit.component';
+import { AuthGuard } from './guards/auth.guard';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -7,14 +9,26 @@ const routes: Routes = [
     pathMatch: "full",
     redirectTo: "home"
   },
-      {
-        path: "home",
-        loadChildren: () =>{
-          return import("./components/home/home.module").then(m => m.HomeModule);
-        }
-      },
-  { path: 'login', loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule) },
-  { path: 'tecnicos', loadChildren: () => import('./components/tecnicos/tecnicos.module').then(m => m.TecnicosModule) }
+  {
+    path: 'login',
+    loadChildren: () => import('./components/login/login.module').then(m => m.LoginModule)
+  },
+
+  {
+    path: "home",
+    loadChildren: () => import("./components/home/home.module").then(m => m.HomeModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'tecnicos',
+    loadChildren: () => import('./components/tecnicos/tecnicos.module').then(m => m.TecnicosModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "logout",
+    component: ExitComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

@@ -1,3 +1,5 @@
+import { UtilsModule } from './utils/utils.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PagesModule } from './shared/pages/pages.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,6 +9,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { ToastrModule } from 'ngx-toastr';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 4000,
       progressBar: true,
       closeButton: true
-    })
+    }),
+    HttpClientModule,
+    JwtModule,
+    UtilsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

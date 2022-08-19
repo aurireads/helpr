@@ -1,9 +1,10 @@
-import { MaterialModule } from './../../shared/material/material.module';
+import { NavBarModule } from './../nav-bar/nav-bar.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TecnicosRoutingModule } from './tecnicos-routing.module';
 import { TecnicosComponent } from './tecnicos.component';
+import { MaterialModule } from 'src/app/shared/material/material.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { TecnicosComponent } from './tecnicos.component';
   imports: [
     CommonModule,
     TecnicosRoutingModule,
-    MaterialModule
+    MaterialModule,
+    NavBarModule
   ],
   exports: [
     TecnicosComponent
