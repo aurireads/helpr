@@ -5,11 +5,13 @@ import { CommonModule } from '@angular/common';
 import { TecnicosRoutingModule } from './tecnicos-routing.module';
 import { TecnicosComponent } from './tecnicos.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
+import { TecnicoCreateComponent } from './childrens/tecnico-create/tecnico-create.component';
 
 
 @NgModule({
   declarations: [
-    TecnicosComponent
+    TecnicosComponent,
+    TecnicoCreateComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
     NavBarModule
   ],
   exports: [
-    TecnicosComponent
+    TecnicosComponent,
+    TecnicoCreateComponent
   ]
 })
 export class TecnicosModule { }

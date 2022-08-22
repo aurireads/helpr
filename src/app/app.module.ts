@@ -1,5 +1,6 @@
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { UtilsModule } from './utils/utils.module';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PagesModule } from './shared/pages/pages.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,7 +30,13 @@ import { JwtModule } from '@auth0/angular-jwt';
     JwtModule,
     UtilsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
