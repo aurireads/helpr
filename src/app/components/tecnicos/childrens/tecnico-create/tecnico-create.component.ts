@@ -1,4 +1,9 @@
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Tecnico } from 'src/app/models/tecnico';
+import { TecnicoService } from 'src/app/services/tecnico.service';
 
 @Component({
   selector: 'app-tecnico-create',
@@ -7,9 +12,54 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TecnicoCreateComponent implements OnInit {
 
-  constructor() { }
+  public tecnico: Tecnico = {
+    nome: "",
+    cpf: "",
+    email: "",
+    senha: "",
+    perfis: []
+  }
+
+  private perfis: number[] = []
+
+  private toast: ToastrService;
+  private service: TecnicoService;
+  private router: Router;
+
+  constructor(service: TecnicoService, toast: ToastrService, router: Router) {
+    this.service = service;
+    this.toast = toast;
+    this.router = router;
+  }
 
   ngOnInit(): void {
+  }
+
+  addPerfil(perfil: number): void {
+    for (let i = 0; i < this.perfis.length; i++) {
+      if (this.perfis[i] === perfil) {
+        this.perfis.splice(i, 1);
+        this.tecnico.perfis = this.perfis;
+        return
+      }
+    }
+    this.perfis.push(perfil);
+    this.tecnico.perfis = this.perfis;
+  }
+
+  create(form: NgForm) {
+    if(form.valid) {
+      this.service.insert(this.tecnico).subscribe({
+        next: response => {
+          this.toast.success("tecnico cadastrado com sucesso", "Sucesso")
+          this.router.navigate(["/tecnicos"]);
+        }
+      })
+    }
+    else{
+      this.toast.error("dados nao existem", "Erro")
+    }
+
   }
 
 }

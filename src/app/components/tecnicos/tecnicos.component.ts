@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -25,9 +27,11 @@ export class TecnicosComponent implements OnInit, AfterViewInit {
   }
 
   private service: TecnicoService;
+  private toast: ToastrService;
 
-  constructor(service: TecnicoService) {
+  constructor(service: TecnicoService, toast: ToastrService) {
     this.service = service;
+    this.toast = toast;
   }
 
   ngOnInit(): void {
@@ -45,6 +49,17 @@ export class TecnicosComponent implements OnInit, AfterViewInit {
       this.tecnicoList = tecnicos;
       this.dataSource = new MatTableDataSource<Tecnico>(this.tecnicoList);
       this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  delete(id: number): void {
+    this.service.remove(id).subscribe({
+      next: () => {
+        this.toast.success("Tecnico deletado com sucesso", "Sucesso");
+        this.initializaTable();
+      }
     })
   }
+
+
 }
