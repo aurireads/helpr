@@ -82,8 +82,19 @@ export class TecnicoUpdateComponent implements OnInit {
         next: response => {
           this.toast.success("tecnico cadastrado com sucesso", "Sucesso")
           this.router.navigate(["/tecnicos"]);
+        },
+        error: errorResponse => {
+          let errors = errorResponse.error.errors;
+          if (errors != undefined) {
+            errors.forEach((error: any) => {
+              this.toast.error(error.message, "Erro")
+            });
+          }
+          else {
+            this.toast.error(errorResponse.error.message, "Erro")
+          }
         }
-      })
+      });
     }
     else {
       this.toast.error("dados nao existem", "Erro")
