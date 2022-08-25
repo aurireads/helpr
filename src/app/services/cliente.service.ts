@@ -16,22 +16,22 @@ private http: HttpClient;
   }
 
   findAll(): Observable<Cliente[]>{
-    return this.http.get<Cliente[]>(`${API_CONFIG.baseUrl}/tecnicos`);
+    return this.http.get<Cliente[]>(`${API_CONFIG.serviceUrl}/tecnicos`);
   }
 
   findById(id: number): Observable<Cliente>{
-    return this.http.get<Cliente>(`${API_CONFIG.baseUrl}/tecnicos/${id}`);
+    return this.http.get<Cliente>(`${API_CONFIG.serviceUrl}/tecnicos/${id}`);
   }
 
   insert(tecnico: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(`${API_CONFIG.baseUrl}/tecnicos`, tecnico);
+    return this.http.post<Cliente>(`${API_CONFIG.serviceUrl}/tecnicos`, tecnico);
   }
 
   remove (id: number): Observable<Cliente> {
-    return  this.http.delete<Cliente>(`${API_CONFIG.baseUrl}/tecnicos/${id}`);
+    return  this.http.delete<Cliente>(`${API_CONFIG.serviceUrl}/tecnicos/${id}`);
   }
 
   update(tecnico: Cliente): Observable<Cliente>{
-    return this.http.put<Cliente>(`${API_CONFIG.baseUrl}/tecnicos/${tecnico.id}`, tecnico);
+    return this.http.put<Cliente>(`${API_CONFIG.serviceUrl}/tecnicos/${tecnico.id}`, tecnico);
   }
 }
