@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Chamado } from 'src/app/models/chamado';
 import { Cliente } from 'src/app/models/cliente';
@@ -16,10 +16,10 @@ type DataSection = {
 
 @Component({
   selector: 'app-chamado-create',
-  templateUrl: './chamado-create.component.html',
-  styleUrls: ['./chamado-create.component.scss']
+  templateUrl: './chamado-update.component.html',
+  styleUrls: ['./chamado-update.component.scss']
 })
-export class ChamadoCreateComponent implements OnInit {
+export class ChamadoUpdateComponent implements OnInit {
 
   public statusList: DataSection[] = [
     { title: "Aberto", value: 0 },
@@ -33,36 +33,39 @@ export class ChamadoCreateComponent implements OnInit {
     { title: "Alta", value: 2 }
   ];
 
+  public chamado: Chamado = {
+    titulo: "",
+    status: NaN,
+    prioridade: NaN,
+    cliente: NaN,
+    tecnico: NaN,
+    observacoes: "",
+  }
+
   public clienteList: Cliente[] = [];
   public tecnicoList: Tecnico[] = [];
 
-  public formChamado: FormGroup;
   private serviceTecnico: TecnicoService;
   private serviceCliente: ClienteService;
   private toast: ToastrService;
   private service: ChamadoService;
   private router: Router;
+  private route: ActivatedRoute
 
   constructor(service: ChamadoService, serviceCliente: ClienteService, serviceTecnico: TecnicoService, formBuilder: FormBuilder,
-    toast: ToastrService, router: Router) {
+    toast: ToastrService, router: Router, route: ActivatedRoute) {
     this.serviceCliente = serviceCliente;
     this.serviceTecnico = serviceTecnico;
     this.service = service;
     this.toast = toast;
     this.router = router;
-    this.formChamado = formBuilder.group({
-      titulo: ["", [Validators.required, Validators.minLength(3)]],
-      status: ["", [Validators.required]],
-      prioridade: ["", [Validators.required]],
-      cliente: ["", [Validators.required]],
-      tecnico: ["", [Validators.required]],
-      observacoes: ["", [Validators.required, Validators.minLength(6)]]
-    });
+    this.route = route;
   }
 
   ngOnInit(): void {
     this.initializeClientes();
     this.initializeTecnicos();
+    this.initializeField();
   }
 
   initializeClientes(): void {
@@ -77,28 +80,38 @@ export class ChamadoCreateComponent implements OnInit {
     });
   }
 
-  create(): void {
-    if(this.formChamado.valid) {
-      let chamado: Chamado = this.formChamado.value;
-      this.service.insert(chamado).subscribe({
+  initializeField(): void {
+    let id: string | null = (this.route.snapshot.paramMap.get("id"));
+    if (id != null) {
+      this.service.findById(Number.parseInt(id)).subscribe(chamado => {
+        this.chamado = chamado;
+      })
+    }
+  }
+
+  update(form: NgForm): void {
+    if (form.valid) {
+      this.service.update(this.chamado).subscribe({
         next: () => {
-          this.toast.success("Chamado adicionado com sucesso.", "Sucesso");
+          this.toast.success("Chamado editado com sucesso.", "Sucesso");
           this.router.navigate(["/chamados"]);
         },
         error: errorResponse => {
-          let errors = errorResponse.error.errors;
-          if(errors != undefined) {
+          let errors = errorResponse.error.errros;
+          if (errors != undefined) {
             errors.forEach((error: any) => {
               this.toast.error(error.message, "Erro");
             });
           }
-          else{
+          else {
             this.toast.error(errorResponse.error.message, "Erro");
           }
         }
-      })
-    }else{
+      });
+    }
+    else {
       this.toast.error("Dados inválidos.", "Erro");
     }
   }
+
 }

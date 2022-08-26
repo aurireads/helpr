@@ -1,3 +1,4 @@
+import { ChamadoDetailsComponent } from './childrens/chamado-details/chamado-details.component';
 import { MatRadioButton } from '@angular/material/radio';
 import { ChamadoService } from './../../services/chamado.service';
 import { Chamado } from './../../models/chamado';
@@ -5,6 +6,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { __importDefault } from 'tslib';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-chamados',
@@ -22,9 +24,11 @@ export class ChamadosComponent implements OnInit {
   paginator!: MatPaginator;
 
   private service: ChamadoService;
+  private dialog: MatDialog;
 
-  constructor(service: ChamadoService) {
+  constructor(service: ChamadoService, dialog: MatDialog) {
     this.service = service;
+    this.dialog = dialog;
   }
 
   ngOnInit(): void {
@@ -63,5 +67,9 @@ export class ChamadosComponent implements OnInit {
     check3.checked = false;
     this.dataSource = new MatTableDataSource<Chamado>(this.chamadoList);
     this.dataSource.paginator = this.paginator;
+  }
+
+  openDetailsDialog(chamado: Chamado): void {
+    this.dialog.open(ChamadoDetailsComponent, { data: chamado, width: "400px"});
   }
 }

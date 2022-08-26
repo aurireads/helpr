@@ -1,3 +1,4 @@
+import { ChamadoUpdateComponent } from './childrens/chamado-update/chamado-update.component';
 import { PipesModule } from './../../pipes/pipes.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './../../shared/material/material.module';
@@ -8,12 +9,15 @@ import { CommonModule } from '@angular/common';
 import { ChamadosRoutingModule } from './chamados-routing.module';
 import { ChamadosComponent } from './chamados.component';
 import { ChamadoCreateComponent } from './childrens/chamado-create/chamado-create.component';
+import { ChamadoDetailsComponent } from './childrens/chamado-details/chamado-details.component';
 
 
 @NgModule({
   declarations: [
     ChamadosComponent,
-    ChamadoCreateComponent
+    ChamadoCreateComponent,
+    ChamadoUpdateComponent,
+    ChamadoDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +30,8 @@ import { ChamadoCreateComponent } from './childrens/chamado-create/chamado-creat
   ],
   exports: [
     ChamadosComponent,
-    ChamadoCreateComponent
+    ChamadoCreateComponent,
+    ChamadoUpdateComponent
   ]
 })
 export class ChamadosModule { }

@@ -3,20 +3,23 @@ import { CommonModule } from '@angular/common';
 
 import { PrioridadePipe } from './prioridade.pipe';
 import { StatusPipe } from './status.pipe';
+import { EncerramentoPipe } from './encerramento.pipe';
 
 
 
 @NgModule({
   declarations: [
     StatusPipe,
-    PrioridadePipe
+    PrioridadePipe,
+    EncerramentoPipe
   ],
   imports: [
     CommonModule
   ],
   exports: [
     StatusPipe,
-    PrioridadePipe
+    PrioridadePipe,
+    EncerramentoPipe
   ]
 })
 export class PipesModule { }
