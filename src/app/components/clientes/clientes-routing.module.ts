@@ -1,8 +1,8 @@
-import { ClienteCreateComponent } from './childrens/cliente-create/cliente-create.component';
+import { ClienteCreateComponent } from './children/cliente-create/cliente-create.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClientesComponent } from './clientes.component';
-import { ClienteUpdateComponent } from './childrens/cliente-update/cliente-update.component';
+import { ClienteUpdateComponent } from './children/cliente-update/cliente-update.component';
 
 const routes: Routes = [
   {

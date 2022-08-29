@@ -5,10 +5,10 @@ import { CommonModule } from '@angular/common';
 import { TecnicosRoutingModule } from './tecnicos-routing.module';
 import { TecnicosComponent } from './tecnicos.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
-import { TecnicoCreateComponent } from './childrens/tecnico-create/tecnico-create.component';
+import { TecnicoCreateComponent } from './children/tecnico-create/tecnico-create.component';
 import { FormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
-import { TecnicoUpdateComponent } from './childrens/tecnico-update/tecnico-update.component';
+import { TecnicoUpdateComponent } from './children/tecnico-update/tecnico-update.component';
 
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { ChamadoDetailsComponent } from './childrens/chamado-details/chamado-details.component';
+import { ChamadoDetailsComponent } from './children/chamado-details/chamado-details.component';
 import { MatRadioButton } from '@angular/material/radio';
 import { ChamadoService } from './../../services/chamado.service';
 import { Chamado } from './../../models/chamado';

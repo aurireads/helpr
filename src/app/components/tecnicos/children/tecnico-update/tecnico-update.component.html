@@ -19,7 +19,7 @@
       </mat-form-field>
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Senha</mat-label>
-        <input type="password" name="senha" matInput required="" minlength="3"
+        <input type="password" name="senha" disabled matInput required="" minlength="3"
         [(ngModel)]="tecnico.senha">
       </mat-form-field>
       <section class="section">
@@ -31,7 +31,8 @@
 
 <div class="align-height">
   <button mat-raised-button color="primary">Editar</button>
-  <a mat-raised-button color="warn" routerLink="/service">                                                                                                                                                                                                       Cancelar</a>
+  <a mat-raised-button color="warn" routerLink="/service">
+    Cancelar</a>
 </div>
     </form>
   </ng-container>
